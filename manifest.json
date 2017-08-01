@@ -10,34 +10,19 @@
 				 "number_of_k8s_masters_no_floating_ip", 
 				 "number_of_k8s_nodes_no_floating_ip", 
 				 "number_of_k8s_nodes", 
-				 "public_key_path", 
-				 "image", 
-				 "ssh_user", 
 				 "flavor_k8s_node", 
 				 "flavor_k8s_master", 
 				 "network_name", 
 				 "floatingip_pool", 
-				 "flavor_gfs_node", 
-				 "image_gfs", 
+				 "flavor_gfs_node",  
 				 "number_of_gfs_nodes_no_floating_ip", 
-				 "gfs_volume_size_in_gb", 
-				 "ssh_user_gfs" ]
+				 "gfs_volume_size_in_gb"
+		     ]
             }
         ],
-        "deploymentParameters": ["keypair", 
-		                 "cloud_provider", 
-				 "bootstrap_os", 
+        "deploymentParameters": [ 
 				 "kube_api_pwd", 
 				 "galaxy_admin_password",
 	                         "galaxy_admin_email"],
         "outputs": []
 }
-
-// to be set in terraform tfvars or -e:
-// "cluster_name", "number_of_k8s_masters", "number_of_k8s_masters_no_floating_ip", "number_of_k8s_nodes_no_floating_ip", "number_of_k8s_nodes", "public_key_path", "image", "ssh_user", "flavor_k8s_node", "flavor_k8s_master", "network_name", "floatingip_pool", "flavor_gfs_node", "image_gfs", "number_of_gfs_nodes_no_floating_ip", "gfs_volume_size_in_gb", "ssh_user_gfs"
-
-// to be set in ansible inventory/group_vars/all.yml:
-// cloud_provider
-
-// to be set in ansible inventory/group_vars/k8s-cluster.yml
-// "bootstrap_os", "kube_api_pwd"
