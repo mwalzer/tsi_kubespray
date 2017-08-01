@@ -1,0 +1,15 @@
+# requires shade
+- hosts: k8s-cluster
+  gather_facts: True
+  - name: Set authorized key took from file
+    authorized_key:
+      user: core
+      state: present
+      key: "{{ lookup('file', '{{ injected_public_key }}') }}"
+- hosts: gfs-cluster
+  gather_facts: True
+  - name: Set authorized key took from file
+    authorized_key:
+      user: ubuntu
+      state: present
+      key: "{{ lookup('file', '{{ injected_public_key }}') }}"

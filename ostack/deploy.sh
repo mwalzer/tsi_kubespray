@@ -4,9 +4,8 @@
 # (but allow for the error trap)
 set -eE
 
-# ostack
-export PRIVATE_KEY="$PORTAL_DEPLOYMENTS_ROOT/$PORTAL_DEPLOYMENT_REFERENCE/vre.key"
-export TF_VAR_public_key_path="$PORTAL_DEPLOYMENTS_ROOT/$PORTAL_DEPLOYMENT_REFERENCE/vre.key.pub"
+# keys exists at $PUBLIC_KEY, $PRIVATE_KEY and profile key at $ssh_key
+export TF_VAR_public_key_path=$PUBLIC_KEY
 
 eval $(ssh-agent -s)
 ssh-add $PRIVATE_KEY
@@ -54,6 +53,10 @@ ansible-playbook  -b --become-user=root -i contrib/terraform/openstack/hosts clu
 # Provision glusterfs
 ansible-playbook -b --become-user=root -i contrib/terraform/openstack/hosts ./contrib/network-storage/glusterfs/glusterfs.yml \
 	--key-file "$PRIVATE_KEY"
+
+# Add provided public key
+ansible-playbook -b --become-user=root -i contrib/terraform/openstack/hosts --key-file "$PRIVATE_KEY" \
+	-e injected_public_key=$ssh_key
 
 # TODO
 # - Make sure that glusterfs nodes get bootstrapped if needed (link bootstrap roles if needed)
