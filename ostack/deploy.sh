@@ -17,21 +17,46 @@ echo Setting up Terraform creds && \
   export TF_VAR_auth_url=${OS_AUTH_URL}
 
 # make sure image is available in openstack
-ansible-playbook "$PORTAL_APP_REPO_FOLDER/playbooks/import-openstack-image.yml"
-ansible-playbook "$PORTAL_APP_REPO_FOLDER/playbooks/import-openstack-image.yml" \
-	-e img_version="current" \
-        -e img_prefix="Ubuntu-16.04" \
-	-e url_prefix="http://cloud-images.ubuntu.com/xenial/" \
-	-e url_suffix="xenial-server-cloudimg-amd64-disk1.img" \
-	-e compress_suffix=""
+#ansible-playbook "$PORTAL_APP_REPO_FOLDER/playbooks/import-openstack-image.yml"
+#ansible-playbook "$PORTAL_APP_REPO_FOLDER/playbooks/import-openstack-image.yml" \
+#	-e img_version="current" \
+#        -e img_prefix="Ubuntu-16.04" \
+#	-e url_prefix="http://cloud-images.ubuntu.com/xenial/" \
+#	-e url_suffix="xenial-server-cloudimg-amd64-disk1.img" \
+#	-e compress_suffix=""
 
-export TF_VAR_image="ContainerOS-1409.7.0"
-export TF_VAR_image_gfs="Ubuntu-16.04-current"
-export TF_VAR_ssh_user="core"
+#export TF_VAR_image="ContainerOS-1409.7.0"
+#export TF_VAR_image_gfs="Ubuntu-16.04-current"
+#export TF_VAR_ssh_user="core"
+#export TF_VAR_ssh_user_gfs="ubuntu"
+
+
+export TF_VAR_kube_api_pwd="kubeapipw"
+export TF_VAR_cluster_name="kubespraytest"
+export TF_VAR_number_of_etcd="0"
+export TF_VAR_number_of_k8s_masters="1"
+export TF_VAR_number_of_k8s_masters_no_floating_ip="0"
+export TF_VAR_number_of_k8s_masters_no_etcd="0"
+export TF_VAR_number_of_k8s_masters_no_floating_ip_no_etcd="0"
+export TF_VAR_number_of_k8s_nodes_no_floating_ip="2"
+export TF_VAR_number_of_k8s_nodes="0"
+export TF_VAR_image="Ubuntu16.04"
+export TF_VAR_ssh_user="ubuntu"
+export TF_VAR_flavor_k8s_node="11"
+export TF_VAR_flavor_k8s_master="11"
+export TF_VAR_network_name="Elixir-Proteomics_private"
+export TF_VAR_floatingip_pool="ext-net"
+export TF_VAR_flavor_gfs_node="11"
+export TF_VAR_image_gfs="Ubuntu16.04"
+export TF_VAR_number_of_gfs_nodes_no_floating_ip="3"
+export TF_VAR_gfs_volume_size_in_gb="30"
 export TF_VAR_ssh_user_gfs="ubuntu"
 
-export KARGO_TERRAFORM_FOLDER=$PORTAL_APP_REPO_FOLDER'/kubespray/contrib/terraform/openstack'
+export KUBELET_DEPLOYMENT_TYPE="host"
+export KUBE_VERSION="v1.8.2"
 
+
+export KARGO_TERRAFORM_FOLDER=$PORTAL_APP_REPO_FOLDER'/kubespray/contrib/terraform/openstack'
 
 
 cd $PORTAL_APP_REPO_FOLDER'/kubespray'
